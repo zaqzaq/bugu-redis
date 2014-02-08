@@ -13,7 +13,7 @@ BuguRedis的功能包括3大部分：<br/>
 * QueueRecipe：队列<br/>
 * StackRecipe：栈<br/>
 
-2、MQClient，用于发送消息。请参考[发送消息的说明](https://github.com/xbwen/bugu-redis/wiki/%E5%8F%91%E9%80%81%E6%96%87%E4%BB%B6%E7%9A%84%E8%AF%B4%E6%98%8E)<br/>
+2、MQClient，用于发送消息。请参考[发送消息的说明](https://github.com/xbwen/bugu-redis/wiki/%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF%E7%9A%84%E8%AF%B4%E6%98%8E)<br/>
 3、FileClient，用于发送文件。请参考[发送文件的说明](https://github.com/xbwen/bugu-redis/wiki/%E5%8F%91%E9%80%81%E6%96%87%E4%BB%B6%E7%9A%84%E8%AF%B4%E6%98%8E)<br/>
 
 使用示例
