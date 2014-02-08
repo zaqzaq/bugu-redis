@@ -22,7 +22,7 @@ BuguRedis的功能包括3大部分：<br/>
     
 下载
 ----------
-如果需要jar文件，可以从这里下载。
+如果需要jar文件，可以从这里[下载](http://www.bugull.com/projects/bugu-redis/bugu-redis-1.0.zip)。
     
 
 
