@@ -1,6 +1,6 @@
 bugu-redis
 ==========
-BuguRedis是一个操作Redis的Java类库，它封装了Redis的各种常用功能，简单易用。
+BuguRedis是一个操作Redis的Java类库，它封装了Redis的各种常用功能，简单易用，并且支持Android系统。
 
 功能介绍
 ----------
