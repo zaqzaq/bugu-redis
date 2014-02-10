@@ -66,6 +66,8 @@ public class Connection {
     }
     
     public void connect(){
+        //if use jedis 2.3.x, disable the jmx
+        //poolConfig.setJmxEnabled(false);
         pool = new JedisPool(poolConfig, host, port, timeout, password, database);
         if(keepAlive > 0){
             scheduler = Executors.newSingleThreadScheduledExecutor();
