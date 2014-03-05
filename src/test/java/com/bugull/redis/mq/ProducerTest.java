@@ -35,8 +35,8 @@ public class ProducerTest {
         
         MQClient client = conn.getMQClient();
         byte[] msg = new byte[]{0x31, 0x32, 0x33};
-        client.produce("b1", msg);
-        client.produce("b2", msg);
+        client.produce("queue1", msg);
+        client.produce("queue2", msg);
         
         Thread.sleep(1000L);
         

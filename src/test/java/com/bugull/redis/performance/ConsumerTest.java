@@ -18,7 +18,7 @@
 package com.bugull.redis.performance;
 
 import com.bugull.redis.Connection;
-import com.bugull.redis.listener.TopicListener;
+import com.bugull.redis.listener.QueueListener;
 import com.bugull.redis.mq.MQClient;
 import org.junit.Test;
 
@@ -26,24 +26,23 @@ import org.junit.Test;
  *
  * @author Frank Wen(xbwen@hotmail.com)
  */
-public class SubscriberTest {
+public class ConsumerTest {
     
     int x;
     
     @Test
-    public void testSubscribe() throws Exception {
+    public void testConsume() throws Exception {
         Connection conn = Connection.getInstance();
         conn.setHost("192.168.0.200");
         conn.setPassword("foobared");
-        conn.setClientId("subscriber");
+        conn.setClientId("consumer");
         conn.connect();
-        
         
         MQClient client = conn.getMQClient();
         
-        TopicListener listener = new TopicListener(){
+        QueueListener listener = new QueueListener(){
             @Override
-            public void onTopicMessage(String topic, byte[] message) {
+            public void onQueueMessage(String queue, byte[] message) {
                 synchronized(this){
                     x++;
                     System.out.println(x);
@@ -51,11 +50,9 @@ public class SubscriberTest {
             }
         };
         
-        client.setTopicListener(listener);
+        client.consume(listener, "queue");
         
-        client.subscribe("topic");
-        
-        Thread.sleep(60L * 1000L);
+        Thread.sleep(2L * 60L * 1000L);
         
         conn.disconnect();
     }

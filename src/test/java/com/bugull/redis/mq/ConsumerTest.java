@@ -46,7 +46,7 @@ public class ConsumerTest {
             }
         };
         
-        client.consume(listener, "b1", "b2");
+        client.consume(listener, "queue1", "queue2");
         
         Thread.sleep(30L * 1000L);
         

@@ -18,7 +18,6 @@
 package com.bugull.redis.performance;
 
 import com.bugull.redis.Connection;
-import com.bugull.redis.listener.TopicListener;
 import com.bugull.redis.mq.MQClient;
 import org.junit.Test;
 
@@ -26,38 +25,45 @@ import org.junit.Test;
  *
  * @author Frank Wen(xbwen@hotmail.com)
  */
-public class SubscriberTest {
+public class ProducerTest {
     
-    int x;
+    Connection conn;
     
     @Test
-    public void testSubscribe() throws Exception {
-        Connection conn = Connection.getInstance();
+    public void testProduce() throws Exception {
+        conn = Connection.getInstance();
         conn.setHost("192.168.0.200");
         conn.setPassword("foobared");
-        conn.setClientId("subscriber");
+        conn.setClientId("producer");
         conn.connect();
         
+        for(int i=0; i<2000; i++){
+            ProduceTask task = new ProduceTask(i);
+            new Thread(task).start();
+        }
         
-        MQClient client = conn.getMQClient();
-        
-        TopicListener listener = new TopicListener(){
-            @Override
-            public void onTopicMessage(String topic, byte[] message) {
-                synchronized(this){
-                    x++;
-                    System.out.println(x);
-                }
-            }
-        };
-        
-        client.setTopicListener(listener);
-        
-        client.subscribe("topic");
-        
-        Thread.sleep(60L * 1000L);
+        Thread.sleep(2L * 60L * 1000L);
         
         conn.disconnect();
+    }
+    
+    class ProduceTask implements Runnable {
+        private int index;
+        
+        public ProduceTask(int index){
+            this.index = index;
+        }
+
+        @Override
+        public void run() {
+            try{
+                MQClient client = conn.getMQClient();
+                client.produce("queue", ("hello" + index).getBytes());
+            }catch(Exception ex){
+                ex.printStackTrace();
+            }
+        }
+        
     }
 
 }
