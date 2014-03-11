@@ -66,7 +66,8 @@ public class Connection {
     }
     
     public void connect(){
-        //if use jedis 2.3.x, disable the jmx
+        //only jedis 2.2.1 is supported on android.
+        //if use jedis 2.3.0 above, disable the jmx
         //poolConfig.setJmxEnabled(false);
         pool = new JedisPool(poolConfig, host, port, timeout, password, database);
         if(keepAlive > 0){
