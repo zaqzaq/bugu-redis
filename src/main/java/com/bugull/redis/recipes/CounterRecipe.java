@@ -16,7 +16,7 @@
 
 package com.bugull.redis.recipes;
 
-import com.bugull.redis.Connection;
+import com.bugull.redis.RedisConnection;
 import com.bugull.redis.exception.RedisException;
 import com.bugull.redis.utils.JedisUtil;
 import redis.clients.jedis.Jedis;
@@ -38,7 +38,7 @@ public class CounterRecipe extends StringRecipe {
     
     public long increase(String key) throws RedisException {
         long count = 0;
-        JedisPool pool = Connection.getInstance().getPool();
+        JedisPool pool = RedisConnection.getInstance().getPool();
         Jedis jedis = null;
         try{
             jedis = pool.getResource();
@@ -53,7 +53,7 @@ public class CounterRecipe extends StringRecipe {
     
     public long decrease(String key) throws RedisException {
         long count = 0;
-        JedisPool pool = Connection.getInstance().getPool();
+        JedisPool pool = RedisConnection.getInstance().getPool();
         Jedis jedis = null;
         try{
             jedis = pool.getResource();

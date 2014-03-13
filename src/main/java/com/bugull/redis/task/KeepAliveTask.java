@@ -16,7 +16,7 @@
 
 package com.bugull.redis.task;
 
-import com.bugull.redis.Connection;
+import com.bugull.redis.RedisConnection;
 import com.bugull.redis.utils.Constant;
 import com.bugull.redis.utils.JedisUtil;
 import redis.clients.jedis.Jedis;
@@ -31,7 +31,7 @@ public class KeepAliveTask implements Runnable {
 
     @Override
     public void run() {
-        Connection conn = Connection.getInstance();
+        RedisConnection conn = RedisConnection.getInstance();
         JedisPool pool = conn.getPool();
         String key = Constant.ONLINE + conn.getClientId();
         int seconds = (int)(conn.getKeepAlive() * 1.5F);

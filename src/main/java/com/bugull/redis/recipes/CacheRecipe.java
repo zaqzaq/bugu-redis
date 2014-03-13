@@ -16,7 +16,7 @@
 
 package com.bugull.redis.recipes;
 
-import com.bugull.redis.Connection;
+import com.bugull.redis.RedisConnection;
 import com.bugull.redis.exception.RedisException;
 import com.bugull.redis.utils.JedisUtil;
 import java.util.Date;
@@ -40,7 +40,7 @@ public class CacheRecipe extends StringRecipe {
     }
     
     public void put(byte[] key, int expire, byte[] data) throws RedisException {
-        JedisPool pool = Connection.getInstance().getPool();
+        JedisPool pool = RedisConnection.getInstance().getPool();
         Jedis jedis = null;
         try{
             jedis = pool.getResource();
@@ -56,7 +56,7 @@ public class CacheRecipe extends StringRecipe {
     }
     
     public void put(byte[] key, Date expireAt, byte[] data) throws RedisException {
-        JedisPool pool = Connection.getInstance().getPool();
+        JedisPool pool = RedisConnection.getInstance().getPool();
         Jedis jedis = null;
         try{
             jedis = pool.getResource();

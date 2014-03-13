@@ -16,7 +16,7 @@
 
 package com.bugull.redis.mq;
 
-import com.bugull.redis.Connection;
+import com.bugull.redis.RedisConnection;
 import com.bugull.redis.listener.FileListener;
 import java.io.FileInputStream;
 import java.util.Arrays;
@@ -32,7 +32,7 @@ public class FileSenderTest {
     
     @Test
     public void testSendFile() throws Exception {
-        Connection conn = Connection.getInstance();
+        RedisConnection conn = RedisConnection.getInstance();
         conn.setHost("192.168.0.200");
         conn.setPassword("foobared");
         conn.setClientId("sender");
@@ -58,7 +58,7 @@ public class FileSenderTest {
         public void onAccept(String fromClientId, String fileId, Map<String,String> extras) {
             String filePath = extras.get("filePath");
             try{
-                FileClient client = Connection.getInstance().getFileClient();
+                FileClient client = RedisConnection.getInstance().getFileClient();
                 FileInputStream fis = new FileInputStream(filePath);
                 int chunkSize = 16 * 1024;
                 byte[] chunkData = new byte[chunkSize];

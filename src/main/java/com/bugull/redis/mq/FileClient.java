@@ -16,7 +16,7 @@
 
 package com.bugull.redis.mq;
 
-import com.bugull.redis.Connection;
+import com.bugull.redis.RedisConnection;
 import com.bugull.redis.utils.Constant;
 import com.bugull.redis.exception.RedisException;
 import com.bugull.redis.listener.FileBroadcastListener;
@@ -50,18 +50,18 @@ public class FileClient extends AbstractClient {
     
     public void setFileListener(FileListener fileListener){
         this.fileListener = fileListener;
-        MQClient client = Connection.getInstance().getMQClient();
-        client.consume(new FileQueueListener(fileListener), Constant.FILE_CLIENT + Connection.getInstance().getClientId());
+        MQClient client = RedisConnection.getInstance().getMQClient();
+        client.consume(new FileQueueListener(fileListener), Constant.FILE_CLIENT + RedisConnection.getInstance().getClientId());
     }
     
     public String requestSendFile(String toClientId, Map<String, String> extras) throws RedisException {
         String fileId = UUID.randomUUID().toString();
         FileMessage fm = new FileMessage();
-        fm.setFromClientId(Connection.getInstance().getClientId());
+        fm.setFromClientId(RedisConnection.getInstance().getClientId());
         fm.setType(Constant.FILE_REQUEST);
         fm.setFileId(fileId);
         fm.setExtras(extras);
-        MQClient client = Connection.getInstance().getMQClient();
+        MQClient client = RedisConnection.getInstance().getMQClient();
         client.produce(Constant.FILE_CLIENT + toClientId, Constant.FILE_MSG_TIMEOUT, fm.toString().getBytes());
         return fileId;
     }
@@ -95,11 +95,11 @@ public class FileClient extends AbstractClient {
     public void acceptReceiveFile(String toClientId, String fileId, Map<String, String> extras) throws RedisException {
         //send accept message
         FileMessage fm = new FileMessage();
-        fm.setFromClientId(Connection.getInstance().getClientId());
+        fm.setFromClientId(RedisConnection.getInstance().getClientId());
         fm.setType(Constant.FILE_ACCEPT);
         fm.setFileId(fileId);
         fm.setExtras(extras);
-        MQClient client = Connection.getInstance().getMQClient();
+        MQClient client = RedisConnection.getInstance().getMQClient();
         client.produce(Constant.FILE_CLIENT + toClientId, Constant.FILE_MSG_TIMEOUT, fm.toString().getBytes());
 
         //start a thread to receive file data
@@ -110,11 +110,11 @@ public class FileClient extends AbstractClient {
     public void rejectReceiveFile(String toClientId, String fileId, Map<String, String> extras) throws RedisException {
         //send reject message;
         FileMessage fm = new FileMessage();
-        fm.setFromClientId(Connection.getInstance().getClientId());
+        fm.setFromClientId(RedisConnection.getInstance().getClientId());
         fm.setType(Constant.FILE_REJECT);
         fm.setFileId(fileId);
         fm.setExtras(extras);
-        MQClient client = Connection.getInstance().getMQClient();
+        MQClient client = RedisConnection.getInstance().getMQClient();
         client.produce(Constant.FILE_CLIENT + toClientId, Constant.FILE_MSG_TIMEOUT, fm.toString().getBytes());
     }
     
@@ -158,7 +158,7 @@ public class FileClient extends AbstractClient {
         fbm.setFileId(fileId);
         fbm.setExtras(extras);
         byte[] message = fbm.toBytes();
-        MQClient client = Connection.getInstance().getMQClient();
+        MQClient client = RedisConnection.getInstance().getMQClient();
         client.publish(topic, message);
         return fileId;
     }
@@ -168,7 +168,7 @@ public class FileClient extends AbstractClient {
         fbm.setType(Constant.BROADCAST_END);
         fbm.setFileId(fileId);
         byte[] message = fbm.toBytes();
-        MQClient client = Connection.getInstance().getMQClient();
+        MQClient client = RedisConnection.getInstance().getMQClient();
         client.publish(topic, message);
     }
     
@@ -178,7 +178,7 @@ public class FileClient extends AbstractClient {
         fbm.setFileId(fileId);
         fbm.setFileData(data);
         byte[] message = fbm.toBytes();
-        MQClient client = Connection.getInstance().getMQClient();
+        MQClient client = RedisConnection.getInstance().getMQClient();
         client.publish(topic, message);
     }
     

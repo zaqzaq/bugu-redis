@@ -16,7 +16,7 @@
 
 package com.bugull.redis.recipes;
 
-import com.bugull.redis.Connection;
+import com.bugull.redis.RedisConnection;
 import com.bugull.redis.exception.RedisException;
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,7 +29,7 @@ public class CounterRecipeTest {
     
     @Test
     public void test() throws Exception {
-        Connection conn = Connection.getInstance();
+        RedisConnection conn = RedisConnection.getInstance();
         conn.setHost("192.168.0.200");
         conn.setPassword("foobared");
         conn.connect();

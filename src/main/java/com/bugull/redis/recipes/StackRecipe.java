@@ -16,7 +16,7 @@
 
 package com.bugull.redis.recipes;
 
-import com.bugull.redis.Connection;
+import com.bugull.redis.RedisConnection;
 import com.bugull.redis.exception.RedisException;
 import com.bugull.redis.utils.JedisUtil;
 import redis.clients.jedis.Jedis;
@@ -34,7 +34,7 @@ public class StackRecipe extends ListRecipe {
     }
     
     public void push(byte[] queue, byte[] element) throws RedisException {
-        JedisPool pool = Connection.getInstance().getPool();
+        JedisPool pool = RedisConnection.getInstance().getPool();
         Jedis jedis = null;
         try{
             jedis = pool.getResource();
@@ -51,7 +51,7 @@ public class StackRecipe extends ListRecipe {
     }
     
     public byte[] pop(byte[] queue) throws RedisException {
-        JedisPool pool = Connection.getInstance().getPool();
+        JedisPool pool = RedisConnection.getInstance().getPool();
         Jedis jedis = null;
         byte[] result = null;
         try{

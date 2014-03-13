@@ -28,7 +28,7 @@ public class ClearDataTest {
     
     @Test
     public void test() throws Exception {
-        Connection conn = Connection.getInstance();
+        RedisConnection conn = RedisConnection.getInstance();
         conn.setHost("192.168.0.200");
         conn.setPassword("foobared");
         conn.connect();

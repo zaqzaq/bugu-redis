@@ -17,7 +17,7 @@
 package com.bugull.redis.listener;
 
 import com.bugull.redis.mq.MQClient;
-import com.bugull.redis.Connection;
+import com.bugull.redis.RedisConnection;
 import com.bugull.redis.utils.Constant;
 import com.bugull.redis.exception.RedisException;
 import com.bugull.redis.utils.JedisUtil;
@@ -51,7 +51,7 @@ public abstract class TopicListener extends BinaryJedisPubSub {
             @Override
             public void run() {
                 map.remove(topic);
-                MQClient client = Connection.getInstance().getMQClient();
+                MQClient client = RedisConnection.getInstance().getMQClient();
                 try{
                     client.unsubscribe(topic);
                 }catch(RedisException ex){
@@ -96,7 +96,7 @@ public abstract class TopicListener extends BinaryJedisPubSub {
         String s = new String(channel);
         removeTimer(s);
         //get retain message
-        Connection conn = Connection.getInstance();
+        RedisConnection conn = RedisConnection.getInstance();
         JedisPool pool = conn.getPool();
         Jedis jedis = null;
         byte[] retainMessage = null;

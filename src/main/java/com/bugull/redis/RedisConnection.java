@@ -39,7 +39,7 @@ import redis.clients.jedis.JedisPoolConfig;
  * 
  * @author Frank Wen(xbwen@hotmail.com)
  */
-public class Connection {
+public class RedisConnection {
     
     private JedisPool pool;
     
@@ -58,10 +58,10 @@ public class Connection {
     private ScheduledExecutorService scheduler;  //scheduler to send online message
     
     private static class Holder {
-        final static Connection instance = new Connection();
+        final static RedisConnection instance = new RedisConnection();
     } 
     
-    public static Connection getInstance(){
+    public static RedisConnection getInstance(){
         return Holder.instance;
     }
     

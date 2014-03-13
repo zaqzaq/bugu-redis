@@ -16,7 +16,7 @@
 
 package com.bugull.redis.recipes;
 
-import com.bugull.redis.Connection;
+import com.bugull.redis.RedisConnection;
 import com.bugull.redis.exception.RedisException;
 import com.bugull.redis.utils.JedisUtil;
 import java.util.List;
@@ -45,7 +45,7 @@ public class LockRecipe extends StringRecipe {
         String uuid = UUID.randomUUID().toString();
         long endTime = System.currentTimeMillis() + (acquireTimeout * 1000);
         while(System.currentTimeMillis() < endTime){
-            JedisPool pool = Connection.getInstance().getPool();
+            JedisPool pool = RedisConnection.getInstance().getPool();
             Jedis jedis = null;
             String status = null;
             try{
@@ -75,7 +75,7 @@ public class LockRecipe extends StringRecipe {
             return false;
         }
         boolean result = false;
-        JedisPool pool = Connection.getInstance().getPool();
+        JedisPool pool = RedisConnection.getInstance().getPool();
         Jedis jedis = null;
         try{
             jedis = pool.getResource();

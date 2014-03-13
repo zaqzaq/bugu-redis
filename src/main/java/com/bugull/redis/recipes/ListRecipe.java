@@ -4,7 +4,7 @@
 
 package com.bugull.redis.recipes;
 
-import com.bugull.redis.Connection;
+import com.bugull.redis.RedisConnection;
 import com.bugull.redis.exception.RedisException;
 import com.bugull.redis.utils.JedisUtil;
 import redis.clients.jedis.Jedis;
@@ -22,7 +22,7 @@ public abstract class ListRecipe extends BaseRecipe {
     
     public long getSize(byte[] listName) throws RedisException {
         long size = 0;
-        JedisPool pool = Connection.getInstance().getPool();
+        JedisPool pool = RedisConnection.getInstance().getPool();
         Jedis jedis = null;
         try{
             jedis = pool.getResource();

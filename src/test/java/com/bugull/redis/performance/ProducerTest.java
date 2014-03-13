@@ -17,7 +17,7 @@
 
 package com.bugull.redis.performance;
 
-import com.bugull.redis.Connection;
+import com.bugull.redis.RedisConnection;
 import com.bugull.redis.mq.MQClient;
 import org.junit.Test;
 
@@ -27,11 +27,11 @@ import org.junit.Test;
  */
 public class ProducerTest {
     
-    Connection conn;
+    RedisConnection conn;
     
     @Test
     public void testProduce() throws Exception {
-        conn = Connection.getInstance();
+        conn = RedisConnection.getInstance();
         conn.setHost("192.168.0.200");
         conn.setPassword("foobared");
         conn.setClientId("producer");
