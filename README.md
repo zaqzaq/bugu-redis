@@ -19,10 +19,7 @@ BuguRedis的功能包括3大部分：<br/>
 使用示例
 ----------
 如何使用BuguRedis，请参考源代码中的单元测试部分。
-    
-下载
-----------
-如果需要jar文件，可以从这里[下载](http://www.bugull.com/projects/bugu-redis/bugu-redis-1.0.zip)。
+
     
 
 
