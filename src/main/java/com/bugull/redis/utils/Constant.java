@@ -30,8 +30,8 @@ public final class Constant {
     
     //some timeout value
     public static final int SUBSCRIBE_TIMEOUT = 10;  //in seconds
-    public static final int BLOCK_POP_TIMEOUT = 60; //in seconds
-    public static final int FILE_MSG_TIMEOUT = 60;  //in seconds
+    public static final int BLOCK_POP_TIMEOUT = 30; //in seconds
+    public static final int FILE_MSG_TIMEOUT = 30;  //in seconds
     
     public static final String MSG = "msg:";
     

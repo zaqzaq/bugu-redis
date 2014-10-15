@@ -3,3 +3,4 @@
 /.nb-gradle-properties
 /.gradle/
 /libs/
+/.nb-gradle/private/

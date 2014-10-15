@@ -24,6 +24,7 @@ import com.bugull.redis.task.BlockedTask;
 import com.bugull.redis.task.ConsumeQueueTask;
 import com.bugull.redis.task.SubscribeTopicTask;
 import com.bugull.redis.utils.JedisUtil;
+import com.bugull.redis.utils.ThreadUtil;
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
@@ -330,8 +331,8 @@ public class MQClient extends AbstractClient {
             }
             ExecutorService es = queueServices.get(queue);
             if(es != null){
-                es.shutdownNow();
                 queueServices.remove(queue);
+                ThreadUtil.safeClose(es);
             }
         }
     }

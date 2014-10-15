@@ -20,6 +20,7 @@ import com.bugull.redis.utils.Constant;
 import com.bugull.redis.mq.MQClient;
 import com.bugull.redis.mq.FileClient;
 import com.bugull.redis.task.KeepAliveTask;
+import com.bugull.redis.utils.ThreadUtil;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -77,9 +78,7 @@ public class RedisConnection {
     }
     
     public void disconnect(){
-        if(scheduler != null){
-            scheduler.shutdownNow();
-        }
+        ThreadUtil.safeClose(scheduler);
         if(mqClient != null){
             mqClient.stopAllConsume();
             mqClient.stopAllTopicTask();

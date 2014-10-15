@@ -21,6 +21,7 @@ import com.bugull.redis.RedisConnection;
 import com.bugull.redis.utils.Constant;
 import com.bugull.redis.exception.RedisException;
 import com.bugull.redis.utils.JedisUtil;
+import com.bugull.redis.utils.ThreadUtil;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.Executors;
@@ -37,9 +38,9 @@ import redis.clients.jedis.JedisPool;
  */
 public abstract class TopicListener extends BinaryJedisPubSub {
     
-    protected ConcurrentMap<String, ScheduledFuture> map = new ConcurrentHashMap<String, ScheduledFuture>();
+    protected final ConcurrentMap<String, ScheduledFuture> map = new ConcurrentHashMap<String, ScheduledFuture>();
     
-    protected ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+    protected final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     
     /**
      * use a timer to re-subscribe
@@ -75,7 +76,7 @@ public abstract class TopicListener extends BinaryJedisPubSub {
     }
     
     public void closeAllTimer(){
-        scheduler.shutdownNow();
+        ThreadUtil.safeClose(scheduler);
     }
     
     public abstract void onTopicMessage(String topic, byte[] message);

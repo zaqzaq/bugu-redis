@@ -33,13 +33,20 @@ public class StoreRecipeTest {
         conn.setPassword("foobared");
         conn.connect();
         
-        String key = "key";
-        String value = "value";
+        String key = "x";
+        String value = "y";
         
         StoreRecipe store = new StoreRecipe();
+        
+        //Assert.assertNull(store.get(key.getBytes()));
+        
         store.set(key, value);
         
-        Assert.assertEquals(value, store.get(key));
+        for(int i=0; i<100; i++){
+            store.set(key + i, value + i);
+        }
+        
+        //Assert.assertEquals(value, store.get(key));
         
         conn.disconnect();
     }

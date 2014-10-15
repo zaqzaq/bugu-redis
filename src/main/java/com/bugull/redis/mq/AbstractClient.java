@@ -20,6 +20,7 @@ import com.bugull.redis.utils.Constant;
 import com.bugull.redis.exception.RedisException;
 import com.bugull.redis.task.BlockedTask;
 import com.bugull.redis.utils.JedisUtil;
+import com.bugull.redis.utils.ThreadUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -93,8 +94,8 @@ public abstract class AbstractClient {
         }
         ExecutorService es = topicServices.get(topic);
         if(es != null){
-            es.shutdownNow();
             topicServices.remove(topic);
+            ThreadUtil.safeClose(es);
         }
     }
     
